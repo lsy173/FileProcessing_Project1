@@ -74,7 +74,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -115,6 +115,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="lecture.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="member.cpp" />
+    <ClCompile Include="purchase.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lecture.h" />
+    <ClInclude Include="member.h" />
+    <ClInclude Include="purchase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
