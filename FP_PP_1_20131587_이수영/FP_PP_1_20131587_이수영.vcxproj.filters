@@ -27,6 +27,9 @@
     <ClCompile Include="purchase.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="iobuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="member.h">
@@ -36,6 +39,9 @@
       <Filter>리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="purchase.h">
+      <Filter>리소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="iobuffer.h">
       <Filter>리소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
