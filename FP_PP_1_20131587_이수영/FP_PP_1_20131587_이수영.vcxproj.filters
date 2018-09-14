@@ -30,6 +30,12 @@
     <ClCompile Include="iobuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="deltext.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="buffile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="member.h">
@@ -42,6 +48,12 @@
       <Filter>리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="iobuffer.h">
+      <Filter>리소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="deltext.h">
+      <Filter>리소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="buffile.h">
       <Filter>리소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

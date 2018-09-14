@@ -115,13 +115,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="iobuffer.cpp" />
+    <ClCompile Include="buffile.cpp" />
+    <ClCompile Include="deltext.cpp" />
+    <ClCompile Include="iobuffer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="lecture.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="member.cpp" />
     <ClCompile Include="purchase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="buffile.h" />
+    <ClInclude Include="deltext.h" />
     <ClInclude Include="iobuffer.h" />
     <ClInclude Include="lecture.h" />
     <ClInclude Include="member.h" />
