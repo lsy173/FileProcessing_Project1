@@ -61,7 +61,7 @@ IOBuffer & BufferFile::GetBuffer() {
 }
 
 int BufferFile::ReadHeader() {
-	return Buffer.ReadHeaer(File);
+	return Buffer.ReadHeader(File);
 }
 
 int BufferFile::WriteHeader() {

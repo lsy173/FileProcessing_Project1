@@ -20,6 +20,7 @@ using namespace std;
 */
 
 class IOBuffer {
+public:
 	IOBuffer(int maxBytes = 1000);
 	IOBuffer & operator = (const IOBuffer &);
 	virtual void Clear();
