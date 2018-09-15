@@ -78,7 +78,6 @@ bool Member::Unpack(IOBuffer &Buffer) {
 }
 
 istream & operator >> (istream & is, Member &s) {
-
 	string st;
 
 	is.exceptions(istream::failbit | istream::badbit);
