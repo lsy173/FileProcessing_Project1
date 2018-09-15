@@ -6,6 +6,11 @@
 #include "iobuffer.h"
 #include "deltext.h"
 
+#define LEN_LECTURE_ID 13
+#define LEN_LEVEL 2
+#define LEN_EXTENSION 2
+#define STDMAXBUF 256
+
 using namespace std;
 
 class Lecture {
@@ -24,21 +29,21 @@ public: // operations.
 	Lecture(const char * newlectureID);
 	Lecture(const Lecture &s);
 	
-	Lecture & operator=(const Lecture &);
-	bool operator == (const Lecture &);
-	bool operator != (const Lecture &);
+	Lecture & operator = (const Lecture &s);
+	bool operator == (const Lecture &s);
+	bool operator != (const Lecture &s);
 
 	friend istream & operator >> (istream &is, Lecture &s);
 	friend ostream & operator << (ostream &os, Lecture &s);
 
-	void update_LectureID(const char* newLectureID) { memcpy(LectureID, newLectureID, sizeof(LectureID)); }
-	void update_Subject(const string  newSubject) { Subject = newSubject; }
-	void update_Level(const char* newLevel) { memcpy(Level, newLevel, sizeof(newLevel)); }
-	void update_Price(const int newPrice) { Price = newPrice; }
-	void update_Extension(const char* newExtension) { memcpy(Extension, newExtension, sizeof(Extension)); }
-	void update_DueDate(const int newDueDate) { DueDate = newDueDate; }
-	void update_NameOfTeacher(const string newNameOfTeacher) { NameOfTeacher = newNameOfTeacher; }
-	void update_TextBook(const string newTextBook) { TextBook = newTextBook; }
+	void setLectureID(const char* newLectureID) { memcpy(LectureID, newLectureID, LEN_LECTURE_ID); }
+	void setSubject(const string  newSubject) { Subject = newSubject; }
+	void setLevel(const char* newLevel) { memcpy(Level, newLevel, LEN_LEVEL); }
+	void setPrice(const int newPrice) { Price = newPrice; }
+	void setExtension(const char* newExtension) { memcpy(Extension, newExtension, LEN_EXTENSION); }
+	void setDueDate(const int newDueDate) { DueDate = newDueDate; }
+	void setNameOfTeacher(const string newNameOfTeacher) { NameOfTeacher = newNameOfTeacher; }
+	void setTextBook(const string newTextBook) { TextBook = newTextBook; }
 
 	char* getLectureID(void) {
 		return LectureID;

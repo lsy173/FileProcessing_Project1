@@ -3,88 +3,83 @@
 
 Lecture::Lecture() {};
 Lecture::Lecture(const char* newLectureID) {
-	update_LectureID(newLectureID);
+	setLectureID(newLectureID);
 }
-Lecture::Lecture(const Lecture & s) {
-	update_LectureID(s.LectureID);
-	update_Subject(s.Subject);
-	update_Level(s.Level);
-	update_Price(s.Price);
-	update_Extension(s.Extension);
-	update_DueDate(s.DueDate);
-	update_NameOfTeacher(s.NameOfTeacher);
-	update_TextBook(s.TextBook);
+Lecture::Lecture(const Lecture& s) {
+	setLectureID(s.LectureID);
+	setSubject(s.Subject);
+	setLevel(s.Level);
+	setPrice(s.Price);
+	setExtension(s.Extension);
+	setDueDate(s.DueDate);
+	setNameOfTeacher(s.NameOfTeacher);
+	setTextBook(s.TextBook);
 }
 
-Lecture & Lecture::operator=(const Lecture &s) {
-	update_LectureID(s.LectureID);
-	update_Subject(s.Subject);
-	update_Level(s.Level);
-	update_Price(s.Price);
-	update_Extension(s.Extension);
-	update_DueDate(s.DueDate);
-	update_NameOfTeacher(s.NameOfTeacher);
-	update_TextBook(s.TextBook);
+Lecture& Lecture::operator = (const Lecture& s) {
+	setLectureID(s.LectureID);
+	setSubject(s.Subject);
+	setLevel(s.Level);
+	setPrice(s.Price);
+	setExtension(s.Extension);
+	setDueDate(s.DueDate);
+	setNameOfTeacher(s.NameOfTeacher);
+	setTextBook(s.TextBook);
 	return *this;
 }
 
-bool Lecture::operator==(const Lecture &s) {
-	if (strcmp(LectureID, s.LectureID) == 0) return true;
-	else return false;
+bool Lecture::operator == (const Lecture& s) {
+	if (strcmp(LectureID, s.LectureID) == 0) 
+		return true;
+	else
+		return false;
 }
 
 bool Lecture::operator!=(const Lecture &s) {
-	if (strcmp(LectureID, s.LectureID) == 0) return false;
-	else return true;
+	if (strcmp(LectureID, s.LectureID) != 0) 
+		return true;
+	else
+		return false;
 }
 
 bool Lecture::Pack(IOBuffer &Buffer) const {
 	int numBytes;
+	string sLectureID(LectureID, LEN_LECTURE_ID);
+	string sLevel(Level, LEN_LEVEL);
+	string sPrice = to_string(Price);
+	string sExtension(Extension, LEN_EXTENSION);
+	string sDueDate = to_string(DueDate);
 
 	Buffer.Clear();
-	string s_mileage(Mileage, LENMIL);
-
-	numBytes = Buffer.Pack(ID.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(Password.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(Name.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(Phone_Number.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(Address.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(s_mileage.c_str());
-	if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(sLectureID.c_str()); if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(Subject.c_str());	if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(sLevel.c_str());		if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(sPrice.c_str());		if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(sExtension.c_str());	if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(sDueDate.c_str());	if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(NameOfTeacher.c_str());if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(TextBook.c_str());	if (numBytes == -1) return false;
 	return true;
 }
 
-bool Member::Unpack(IOBuffer &Buffer) {
+bool Lecture::Unpack(IOBuffer &Buffer) {
 	int numBytes;
 	char buf[STDMAXBUF];
+	string sPrice;
+	string sDueDate;
 
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
-	ID = buf;
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
-	Password = buf;
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
-	Name = buf;
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
-	Phone_Number = buf;
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
-	Address = buf;
-	numBytes = Buffer.Unpack(Mileage, LENMIL);
-	if (numBytes == -1) return false;
-
+	numBytes = Buffer.Unpack(LectureID, LEN_LECTURE_ID);	if (numBytes == -1) return false;
+	numBytes = Buffer.Unpack(buf);	if (numBytes == -1) return false; Subject= buf;	
+	numBytes = Buffer.Unpack(Level, LEN_LEVEL);	if (numBytes == -1) return false;
+	numBytes = Buffer.Unpack(buf);	if (numBytes == -1) return false; sPrice = buf; Price = stoi(sPrice);
+	numBytes = Buffer.Unpack(Extension, LEN_EXTENSION);	if (numBytes == -1) return false;
+	numBytes = Buffer.Unpack(buf);	if (numBytes == -1) return false; sDueDate = buf; DueDate = stoi(sDueDate);
+	numBytes = Buffer.Unpack(buf); if (numBytes == -1) return false; NameOfTeacher = buf;
+	numBytes = Buffer.Unpack(buf); if (numBytes == -1) return false; TextBook = buf;
 	return true;
 }
 
-istream & operator >> (istream & is, Member &s) {
+istream & operator >> (istream & is, Lecture &s) {
 
 	string st;
 
@@ -101,31 +96,39 @@ istream & operator >> (istream & is, Member &s) {
 	string token;
 
 	getline(iss, token, '|');
-	s.update_ID(token.data());
+	s.setLectureID(token.data());
 	getline(iss, token, '|');
-	s.update_Password(token.data());
+	s.setSubject(token.data());
 	getline(iss, token, '|');
-	s.update_Name(token.data());
+	s.setLevel(token.data());
 	getline(iss, token, '|');
-	s.update_PhoneNumber(token.data());
+	s.setPrice(stoi(token.data()));
 	getline(iss, token, '|');
-	s.update_Address(token.data());
+	s.setExtension(token.data());
 	getline(iss, token, '|');
-	s.update_Mileage(token.data());
-
+	s.setDueDate(stoi(token.data()));
+	getline(iss, token, '|');
+	s.setNameOfTeacher(token.data());
+	getline(iss, token, '|');
+	s.setTextBook(token.data());
 	return is;
 
 }
 
-ostream & operator << (ostream &os, Member &s) {
-	string Mileage(s.Mileage, LENMIL);
+ostream & operator << (ostream &os, Lecture &s) {
+	string sLectureID(s.LectureID, LEN_LECTURE_ID);
+	string sLevel(s.Level, LEN_LEVEL);
+	string sPrice = to_string(s.Price);
+	string sExtension(s.Extension, LEN_EXTENSION);
+	string sDueDate = to_string(s.DueDate);
 
-	os << "ID : " << s.ID << endl;
-	os << "Password : " << s.Password << endl;
-	os << "Name : " << s.Name << endl;
-	os << "Phone_Number : " << s.Phone_Number << endl;
-	os << "Address : " << s.Address << endl;
-	os << "Mileage : " << Mileage << endl;
-
+	os << "LectureID: " << s.LectureID << endl;
+	os << "Subject: " << s.Subject << endl;
+	os << "Level: " << s.Level << endl;
+	os << "Price: " << s.Price << endl;
+	os << "Extension: " << s.Extension << endl;
+	os << "DueDate: " << s.DueDate << endl;
+	os << "NameOfTeacher: " << s.NameOfTeacher << endl;
+	os << "TextBook: " << s.TextBook << endl;
 	return os;
 }
