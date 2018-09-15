@@ -2,53 +2,46 @@
 #include <sstream>
 
 Member::Member() {};
-Member::Member(const char *new_id) {
-	update_ID(new_id);
+Member::Member(const string newID) {
+	setID(newID);
 };
 Member::Member(const Member &s) {
-	update_ID(s.ID);
-	update_Password(s.Password);
-	update_Name(s.Name);
-	update_PhoneNumber(s.Phone_Number);
-	update_Address(s.Address);
-	update_Mileage(s.Mileage);
+	setID(s.ID);
+	setPassword(s.Password);
+	setName(s.Name);
+	setPhoneNumber(s.PhoneNumber);
+	setAddress(s.Address);
+	setMileage(s.Mileage);
 }
 Member& Member::operator=(const Member &s) {
-	update_ID(s.ID);
-	update_Password(s.Password);
-	update_Name(s.Name);
-	update_PhoneNumber(s.Phone_Number);
-	update_Address(s.Address);
-	update_Mileage(s.Mileage);
+	setID(s.ID);
+	setPassword(s.Password);
+	setName(s.Name);
+	setPhoneNumber(s.PhoneNumber);
+	setAddress(s.Address);
+	setMileage(s.Mileage);
 	return *this;
 }
 
 bool Member::operator==(const Member &s) {
-	return (get_id() == s.ID);
+	return (getID() == s.ID);
 }
 
 bool Member::operator!=(const Member &s) {
-	return (get_id() != s.ID);
+	return (getID() != s.ID);
 }
 
 bool Member::Pack(IOBuffer &Buffer) const {
 	int numBytes;
+	string sMileage(Mileage, LEN_MIL);
 
 	Buffer.Clear();
-	string s_mileage(Mileage, LENMIL);
-
-	numBytes = Buffer.Pack(ID.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(Password.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(Name.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(Phone_Number.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(Address.c_str());
-	if (numBytes == -1) return false;
-	numBytes = Buffer.Pack(s_mileage.c_str());
-	if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(ID.c_str()); if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(Password.c_str()); if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(Name.c_str()); if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(PhoneNumber.c_str()); if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(Address.c_str()); if (numBytes == -1) return false;
+	numBytes = Buffer.Pack(sMileage.c_str()); if (numBytes == -1) return false;
 	return true;
 }
 
@@ -56,23 +49,17 @@ bool Member::Unpack(IOBuffer &Buffer) {
 	int numBytes;
 	char buf[STDMAXBUF];
 
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
+	numBytes = Buffer.Unpack(buf); if (numBytes == -1) return false;
 	ID = buf;
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
+	numBytes = Buffer.Unpack(buf); if (numBytes == -1) return false;
 	Password = buf;
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
+	numBytes = Buffer.Unpack(buf); if (numBytes == -1) return false;
 	Name = buf;
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
-	Phone_Number = buf;
-	numBytes = Buffer.Unpack(buf);
-	if (numBytes == -1) return false;
+	numBytes = Buffer.Unpack(buf); if (numBytes == -1) return false;
+	PhoneNumber = buf; 
+	numBytes = Buffer.Unpack(buf); if (numBytes == -1) return false;
 	Address = buf;
-	numBytes = Buffer.Unpack(Mileage, LENMIL);
-	if (numBytes == -1) return false;
+	numBytes = Buffer.Unpack(Mileage, LEN_MIL); if (numBytes == -1) return false;
 
 	return true;
 }
@@ -93,29 +80,29 @@ istream & operator >> (istream & is, Member &s) {
 	string token;
 
 	getline(iss, token, '|');
-	s.update_ID(token.data());
+	s.setID(token.data());
 	getline(iss, token, '|');
-	s.update_Password(token.data());
+	s.setPassword(token.data());
 	getline(iss, token, '|');
-	s.update_Name(token.data());
+	s.setName(token.data());
 	getline(iss, token, '|');
-	s.update_PhoneNumber(token.data());
+	s.setPhoneNumber(token.data());
 	getline(iss, token, '|');
-	s.update_Address(token.data());
+	s.setAddress(token.data());
 	getline(iss, token, '|');
-	s.update_Mileage(token.data());
+	s.setMileage(token.data());
 
 	return is;
 
 }
 
 ostream & operator << (ostream &os, Member &s) {
-	string Mileage(s.Mileage, LENMIL);
+	string Mileage(s.Mileage, LEN_MIL);
 
 	os << "ID : " << s.ID << endl;
 	os << "Password : " << s.Password << endl;
 	os << "Name : " << s.Name << endl;
-	os << "Phone_Number : " << s.Phone_Number << endl;
+	os << "Phone_Number : " << s.PhoneNumber << endl;
 	os << "Address : " << s.Address << endl;
 	os << "Mileage : " << Mileage << endl;
 

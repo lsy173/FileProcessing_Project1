@@ -2,7 +2,7 @@
 #include <string>
 #include "iobuffer.h"
 
-#define LENMIL 11
+#define LEN_MIL 11
 #define STDMAXBUF 256
 
 using namespace std;
@@ -13,13 +13,13 @@ private:
 	string ID;
 	string Password;
 	string Name;
-	string	Phone_Number;
+	string	PhoneNumber;
 	string Address;
 	char Mileage[11];	
 
 public:
 	Member();
-	Member(const char* new_id);
+	Member(const string newID);
 	Member(const Member &s);
 
 	Member & operator = (const Member &s);
@@ -29,33 +29,33 @@ public:
 	friend istream & operator >> (istream &is, Member &s);
 	friend ostream & operator << (ostream &os, Member &s);
 
-	void update_ID(const string new_id) { ID = new_id; }
-	void update_Password(const string new_password) { Password = new_password; }
-	void update_Name(const string new_name) { Name = new_name; }
-	void update_PhoneNumber(const string new_phone_number) { Phone_Number = new_phone_number; }
-	void update_Address(const string new_address) { Address = new_address; }
-	void update_Mileage(const char * new_mileage) { memcpy(Mileage, new_mileage, 11); }
+	void setID(const string newID) { ID = newID; }
+	void setPassword(const string newPassword) { Password = newPassword; }
+	void setName(const string newName) { Name = newName; }
+	void setPhoneNumber(const string newPhoneNumber) { PhoneNumber = newPhoneNumber; }
+	void setAddress(const string newAddress) { Address = newAddress; }
+	void setMileage(const char * newMileage) { memcpy(Mileage, newMileage, LEN_MIL); }
 
-	string get_id() {
+	string getID() {
 		return ID;
 	}
-	string get_password() {
+	string getPassword() {
 		return Password;
 	}
-	string get_name() {
+	string getName() {
 		return Name;
 	}
-	string get_number() {
-		return Phone_Number;
+	string getPhoneNumber() {
+		return PhoneNumber;
 	}
-	string get_address() {
+	string getAddress() {
 		return Address;
 	}
-	char *get_mileage() {
+	char* getMileage() {
 		return Mileage;
 	}
-	int get_length() {
-		return ID.size() + Password.size() + Name.size() + Phone_Number.size() + Address.size() + strlen(Mileage);
+	int getLength() {
+		return ID.size() + Password.size() + Name.size() + PhoneNumber.size() + Address.size() + strlen(Mileage);
 	}
 
 	bool Pack(IOBuffer &Buffer) const;
