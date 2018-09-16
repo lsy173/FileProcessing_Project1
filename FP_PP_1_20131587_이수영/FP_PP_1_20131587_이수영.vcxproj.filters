@@ -36,6 +36,9 @@
     <ClCompile Include="buffile.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="LecturePurchase.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="member.h">
@@ -54,6 +57,12 @@
       <Filter>리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="buffile.h">
+      <Filter>리소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="LecturePurchase.h">
+      <Filter>리소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="recfile.h">
       <Filter>리소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
