@@ -2,9 +2,8 @@
 #define LECTURE_H
 
 #include <iostream>
-#include <fstream>
-#include "iobuffer.h"
-#include "deltext.h"
+#include <string>
+#include "delim.h"
 
 #define LEN_LECTURE_ID 13
 #define LEN_LEVEL 2
@@ -15,11 +14,11 @@ using namespace std;
 
 class Lecture {
 private: // fields.
-	char LectureID[13];
+	char LectureID[LEN_LECTURE_ID];
 	string Subject;
-	char Level[2];
+	char Level[LEN_LEVEL];
 	int Price;
-	char Extension[2];
+	char Extension[LEN_EXTENSION];
 	int DueDate;
 	string NameOfTeacher;
 	string TextBook;

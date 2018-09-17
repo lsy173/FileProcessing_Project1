@@ -15,8 +15,8 @@ class BufferFile
 public:
 	BufferFile(IOBuffer &);
 
-	int Open(char* filename, int MODE); // Open already existing file.
-	int Create(char* filename, int MODE);// Create new file.
+	int Open(const char* filename, int MODE); // Open already existing file.
+	int Create(const char* filename, int MODE);// Create new file.
 	int Close(); // Close opened file.
 	int Rewind(); // Reconfigure the first data record.
 	int Read(int recaddr = -1); //  Read the record into buffer.
@@ -25,7 +25,6 @@ public:
 
 	// Access to IOBuffer.
 	IOBuffer & GetBuffer();
-	void deleteRec();
 
 protected:
 	IOBuffer & Buffer;

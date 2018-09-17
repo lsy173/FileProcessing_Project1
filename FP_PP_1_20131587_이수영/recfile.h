@@ -15,7 +15,7 @@ public:
 };
 
 template <class RecType>
-int RecordFile<RecType>::Read(RecType & record, int recaddr = -1) {
+int RecordFile<RecType>::Read(RecType & record, int recaddr) {
 	int readAddr, result;
 	readAddr = BufferFile::Read(recaddr);
 	if (readAddr == -1) return -1;
@@ -26,7 +26,7 @@ int RecordFile<RecType>::Read(RecType & record, int recaddr = -1) {
 
 
 template <class RecType>
-int RecordFile<RecType>::Write(const RecType & record, int recaddr = -1)
+int RecordFile<RecType>::Write(const RecType & record, int recaddr)
 {
 	int result;
 	result = record.Pack(Buffer);
@@ -35,7 +35,7 @@ int RecordFile<RecType>::Write(const RecType & record, int recaddr = -1)
 }
 
 template <class RecType>
-int RecordFile<RecType>::Append(const RecType & record, int recaddr = -1)
+int RecordFile<RecType>::Append(const RecType & record, int recaddr)
 {
 	int result;
 	result = record.Pack(Buffer);

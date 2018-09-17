@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "iobuffer.h"
+#include "delim.h"
 
 #define LEN_MIL 11
 #define STDMAXBUF 256

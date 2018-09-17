@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "iobuffer.h"
+#include "delim.h"
 
 using namespace std;
 
@@ -45,6 +45,9 @@ public:
 	char* getMileage(void) {
 		return Mileage;
 	};
+	int getLength(void) {
+		return strlen(PurchaseID) + strlen(LectureID) + MemberID.size() + strlen(Mileage);
+	}
 
 	bool Pack(IOBuffer &Buffer) const;
 	bool Unpack(IOBuffer &);

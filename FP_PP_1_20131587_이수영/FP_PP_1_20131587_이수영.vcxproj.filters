@@ -39,6 +39,9 @@
     <ClCompile Include="varlen.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="delim.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="member.h">
@@ -65,5 +68,30 @@
     <ClInclude Include="varlen.h">
       <Filter>리소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="delim.h">
+      <Filter>리소스 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="listOfMember.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="listOfPurchase.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="listOfTicket.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fileOfMember.dat">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="fileOfPurchase.dat">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="fileOfTicket.dat">
+      <Filter>리소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>

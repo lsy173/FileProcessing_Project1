@@ -10,9 +10,9 @@ IOBuffer & IOBuffer::operator=(const IOBuffer & buffer) {
 	if (MaxBytes < buffer.BufferSize) return *this; // It fails.
 	Initialized = buffer.Initialized;
 	BufferSize = buffer.BufferSize;
-	memcpy(Buffer, buffer.Buffer, BufferSize);
+	memcpy(Buffer, buffer.Buffer, buffer.BufferSize);
 	NextByte = buffer.NextByte;
-	Packing = buffer.Packing;
+	Packing = Packing;
 	return *this;
 }
 
@@ -38,27 +38,22 @@ int IOBuffer::Init(int maxBytes) {
 
 // Directly read specific record.
 int IOBuffer::DRead(istream &stream, int recref) {
-	int temp;
-
 	stream.seekg(recref, ios::beg);
-	if ((temp = stream.tellg()) != recref) return -1;
+	if ( (int)stream.tellg() != recref) return -1;
 	return Read(stream);
 }
 
 // Directly write specific record.
 int IOBuffer::DWrite(ostream &stream, int recref) const {
-	int temp;
-
 	stream.seekp(recref, ios::beg);
-	if ((temp = stream.tellp()) != recref) return  -1;
+	if ( (int)stream.tellp() != recref) return  -1;
 	return Write(stream);
 }
 
 static const char * headerStr = "IOBuffer";
-static const int headerSize = strlen(headerStr);
+static const int headerSize = 8;
 
-int IOBuffer::ReadHeader(istream & stream)
-{
+int IOBuffer::ReadHeader(istream & stream) {
 	char* str = new char[headerSize + 1];
 	stream.seekg(0, ios::beg);
 	stream.read(str, headerSize);
@@ -68,8 +63,7 @@ int IOBuffer::ReadHeader(istream & stream)
 	else return -1;
 }
 
-int IOBuffer::WriteHeader(ostream & stream) const
-{
+int IOBuffer::WriteHeader(ostream & stream) const {
 	stream.seekp(0, ios::beg);
 	stream.write(headerStr, headerSize);
 	if (!stream.good()) return -1;

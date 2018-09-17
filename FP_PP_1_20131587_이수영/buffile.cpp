@@ -1,5 +1,4 @@
 #include "buffile.h"
-#include <fstream>
 
 using namespace std;
 
@@ -8,7 +7,7 @@ BufferFile::BufferFile(IOBuffer & from) : Buffer(from)
 
 }
 
-int BufferFile::Open(char * filename, int mode) {
+int BufferFile::Open(const char * filename, int mode) {
 	if (mode&ios::_Noreplace || mode & ios::trunc) return FALSE;
 
 	File.open(filename, mode | ios::in | ios::_Nocreate | ios::binary);
@@ -22,7 +21,7 @@ int BufferFile::Open(char * filename, int mode) {
 	return File.good();
 }
 
-int BufferFile::Create(char * filename, int mode) {
+int BufferFile::Create(const char * filename, int mode) {
 	if (!(mode & ios::out)) return FALSE;
 	File.open(filename, mode | ios::in | ios::out | ios::_Noreplace | ios::binary);
 	if (!File.good()) {
@@ -31,6 +30,11 @@ int BufferFile::Create(char * filename, int mode) {
 	}
 	HeaderSize = WriteHeader();
 	return HeaderSize != 0;
+}
+
+int BufferFile::Close(void) {
+	File.close();
+	return TRUE;
 }
 
 int BufferFile::Rewind()
