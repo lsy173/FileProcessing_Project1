@@ -70,17 +70,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="listOfMember.txt">
-      <Filter>리소스 파일</Filter>
-    </Text>
-    <Text Include="listOfPurchase.txt">
-      <Filter>리소스 파일</Filter>
-    </Text>
-    <Text Include="listOfTicket.txt">
-      <Filter>리소스 파일</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="fileOfMember.dat">
       <Filter>리소스 파일</Filter>
     </None>
@@ -90,5 +79,16 @@
     <None Include="fileOfTicket.dat">
       <Filter>리소스 파일</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="listOfLecture.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="listOfMember.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="listOfPurchase.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>

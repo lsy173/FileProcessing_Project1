@@ -138,14 +138,14 @@
     <ClInclude Include="varlen.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="listOfMember.txt" />
-    <Text Include="listOfPurchase.txt" />
-    <Text Include="listOfTicket.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="fileOfMember.dat" />
     <None Include="fileOfPurchase.dat" />
     <None Include="fileOfTicket.dat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="listOfLecture.txt" />
+    <Text Include="listOfMember.txt" />
+    <Text Include="listOfPurchase.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
