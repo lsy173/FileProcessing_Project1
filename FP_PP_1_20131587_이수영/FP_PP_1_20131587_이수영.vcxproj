@@ -125,6 +125,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="member.cpp" />
     <ClCompile Include="purchase.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="varlen.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -138,9 +139,9 @@
     <ClInclude Include="varlen.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="fileOfLecture.dat" />
     <None Include="fileOfMember.dat" />
     <None Include="fileOfPurchase.dat" />
-    <None Include="fileOfTicket.dat" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="listOfLecture.txt" />

@@ -42,6 +42,9 @@
     <ClCompile Include="delim.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="buffile.h">
@@ -76,7 +79,7 @@
     <None Include="fileOfPurchase.dat">
       <Filter>리소스 파일</Filter>
     </None>
-    <None Include="fileOfTicket.dat">
+    <None Include="fileOfLecture.dat">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>

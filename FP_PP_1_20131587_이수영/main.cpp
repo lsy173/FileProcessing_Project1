@@ -45,9 +45,9 @@ int main(void) {
 		case 1: showMember(); break;
 		case 2: showLecture(); break;
 		case 3: showPurchase(); break;
-		case 4: MemberTest(0); break;
-		case 5: LectureTest(0); break;
-		case 6: PurchaseTest(0); break;
+		case 4: MemberTest(1); break;
+		case 5: LectureTest(1); break;
+		case 6: PurchaseTest(1); break;
 		case 7: LecturePurchaseSystem(); break;
 		case 8: return 0;
 		default: break;
@@ -78,10 +78,9 @@ void showMember() {
 		cout << "listOfMember.txt File Open Error!" << endl << endl;
 		return;
 	}
-	int temp;
-	ifs >> temp;
+	
 	ifs.ignore(numeric_limits<streamsize>::max(), '\n');
-	//cout << temp << endl;
+	
 	for (int i = 0; i<10; i++)
 	{
 		Member M;
@@ -100,10 +99,9 @@ void showLecture() {
 		cout << "listOfLetcure.txt File Open Error!" << endl;
 		return;
 	}
-	int temp;
-	ifs >> temp;
+
 	ifs.ignore(numeric_limits<streamsize>::max(), '\n');
-	//cout << temp << endl;
+	
 	for (int i = 0; i<10; i++)
 	{
 		Lecture M;
@@ -124,7 +122,7 @@ void showPurchase() {
 	int temp;
 	ifs >> temp;
 	ifs.ignore(numeric_limits<streamsize>::max(), '\n');
-	//cout << temp << endl;
+	
 	for (int i = 0; i<10; i++)
 	{
 		Purchase M;
@@ -137,8 +135,7 @@ void showPurchase() {
 
 void MemberTest(int print_flag) {
 	ifstream ifs("listOfMember.txt");
-	if (ifs.fail())
-	{
+	if (ifs.fail()) {
 		cout << "listOfMember.txt File Open Error!" << endl;
 		return;
 	}
@@ -170,7 +167,7 @@ void MemberTest(int print_flag) {
 	for (int i = 0; i < 10; i++) {
 		Member s;
 		MemberFile.Read(s);
-		if (!print_flag)
+		if (print_flag)
 			cout << s << endl;
 	}
 	MemberFile.Close();
@@ -213,7 +210,7 @@ void LectureTest(int print_flag) {
 	for (int i = 0; i < 10; i++) {
 		Lecture s;
 		LectureFile.Read(s);
-		if (!print_flag)
+		if (print_flag)
 			cout << s << endl;
 	}
 	LectureFile.Close();
@@ -256,7 +253,7 @@ void PurchaseTest(int print_flag) {
 	for (int i = 0; i < 10; i++) {
 		Purchase s;
 		PurchaseFile.Read(s);
-		if (!print_flag)
+		if (print_flag)
 			cout << s << endl;
 	}
 	PurchaseFile.Close();
@@ -271,10 +268,10 @@ void LecturePurchaseSystem() {
 	string want_ID;
 	static int test = 0;
 
-	if (!test) {
-		MemberTest(1);
-		LectureTest(1);
-		PurchaseTest(1);
+	if (test) {
+		MemberTest(0);
+		LectureTest(0);
+		PurchaseTest(0);
 		test = 1;
 	}
 
@@ -507,12 +504,10 @@ void InsertingByID() {
 
 			cout << "New Password : ";
 			cin >> temp;
-			getchar();
 			n.setPassword(temp);
 
 			cout << "New Name : ";
-			cin.getline(update_temp, 100);
-			temp = update_temp;
+			cin >> temp;
 			n.setName(temp);
 
 			cout << "New Phone Number : ";
@@ -533,11 +528,6 @@ void InsertingByID() {
 
 			memberArr[index] = n;
 			index += 1;
-
-			//ifs.seekg(n.get_length(), ifs.cur);
-
-			//cout << "INDEX : " << index << endl;
-
 
 			MemberFile.Close();
 			MemberFile.Create("fileOfMember.dat", ios::out | ios::trunc);

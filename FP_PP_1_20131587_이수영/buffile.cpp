@@ -8,9 +8,11 @@ BufferFile::BufferFile(IOBuffer & from) : Buffer(from)
 }
 
 int BufferFile::Open(const char * filename, int mode) {
-	if (mode&ios::_Noreplace || mode & ios::trunc) return FALSE;
+	//if (mode&ios::_Noreplace || mode & ios::trunc) return FALSE;
+	if (mode&ios::trunc) return FALSE;
 
-	File.open(filename, mode | ios::in | ios::_Nocreate | ios::binary);
+	//File.open(filename, mode | ios::in | ios::_Nocreate | ios::binary);
+	File.open(filename, mode | ios::in | ios::binary);
 	if (!File.good()) return FALSE;
 	File.seekg(0, ios::beg);
 	File.seekp(0, ios::beg);
@@ -23,7 +25,9 @@ int BufferFile::Open(const char * filename, int mode) {
 
 int BufferFile::Create(const char * filename, int mode) {
 	if (!(mode & ios::out)) return FALSE;
-	File.open(filename, mode | ios::in | ios::out | ios::_Noreplace | ios::binary);
+	//File.open(filename, mode | ios::in | ios::out | ios::_Noreplace | ios::binary);
+	File.open(filename, mode | ios::in | ios::out | ios::binary);
+
 	if (!File.good()) {
 		File.close();
 		return FALSE;
