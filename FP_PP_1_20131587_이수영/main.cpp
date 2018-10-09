@@ -154,10 +154,10 @@ void MemberTest(int print_flag) {
 		ifs >> s;
 		int recaddr;
 		if ((recaddr = MemberFile.Write(s)) == -1)
-			if (!print_flag)
+			if (print_flag)
 				cout << "Write Error!" << endl;
 			else
-				if (!print_flag)
+				if (print_flag)
 					cout << "Write at " << recaddr << endl;
 	}
 	MemberFile.Close();
@@ -197,10 +197,10 @@ void LectureTest(int print_flag) {
 		ifs >> s;
 		int recaddr;
 		if ((recaddr = LectureFile.Write(s)) == -1)
-			if (!print_flag)
+			if (print_flag)
 				cout << "Write Error!" << endl;
 			else
-				if (!print_flag)
+				if (print_flag)
 					cout << "Write at " << recaddr << endl;
 	}
 	LectureFile.Close();
@@ -230,7 +230,7 @@ void PurchaseTest(int print_flag) {
 	ifs >> n;
 	ifs.ignore(numeric_limits<streamsize>::max(), '\n');
 
-	DelimFieldBuffer buffer('|', 1000);
+	DelimFieldBuffer buffer('|', 10000);
 	RecordFile <Purchase> PurchaseFile(buffer);
 
 	// Write test
@@ -240,10 +240,10 @@ void PurchaseTest(int print_flag) {
 		ifs >> s;
 		int recaddr;
 		if ((recaddr = PurchaseFile.Write(s)) == -1)
-			if (!print_flag)
+			if (print_flag)
 				cout << "Write Error!" << endl;
 			else
-				if (!print_flag)
+				if (print_flag)
 					cout << "Write at " << recaddr << endl;
 	}
 	PurchaseFile.Close();
@@ -268,7 +268,7 @@ void LecturePurchaseSystem() {
 	string want_ID;
 	static int test = 0;
 
-	if (test) {
+	if (!test) {
 		MemberTest(0);
 		LectureTest(0);
 		PurchaseTest(0);
@@ -354,14 +354,14 @@ int SearchingByID(int flag, string filename, string want_ID) {
 	}
 	else if (filename.compare("fileOfLecture.dat") == 0) {
 		DelimFieldBuffer buffer('|', 1000);
-		RecordFile <Lecture> TicketFile(buffer);
-		TicketFile.Open("fileOfLecture.dat", ios::in);
+		RecordFile <Lecture> LectureFile(buffer);
+		LectureFile.Open("fileOfLecture.dat", ios::in);
 		ifs.clear();
 		ifs.seekg(0, ifs.end);
 		ifs_last = ifs.tellg();
 		ifs.seekg(0, ifs.beg);
 		while (ifs.tellg() < ifs_last) {
-			TicketFile.Read(l);
+			LectureFile.Read(l);
 			ifs.seekg(l.getLength(), ifs.cur);
 			if (!memcmp(l.getLectureID(), want_ID.c_str(), strlen(l.getLectureID()))) {
 				find_ID = 2;
@@ -370,12 +370,12 @@ int SearchingByID(int flag, string filename, string want_ID) {
 			}
 			find_Addr += l.getLength();
 		}
-		TicketFile.Close();
+		LectureFile.Close();
 		ifs.close();
 
 	}
 	else if (filename.compare("fileOfPurchase.dat") == 0) {
-		DelimFieldBuffer buffer('|', 1000);
+		DelimFieldBuffer buffer('|', 10000);
 		RecordFile <Purchase> PurchaseFile(buffer);
 		PurchaseFile.Open("fileOfPurchase.dat", ios::in);
 		ifs.clear();
@@ -624,7 +624,7 @@ void InsertingByID() {
 
 			LectureFile.Close();
 
-			LectureFile.Create("fileOfTicket.dat", ios::out | ios::trunc);
+			LectureFile.Create("fileOfLecture.dat", ios::out | ios::trunc);
 			int recaddr;
 			for (int i = 0; i < index; i++) {
 				if ((recaddr = LectureFile.Write(lectureArr[i])) == -1)
@@ -645,7 +645,7 @@ void InsertingByID() {
 
 			Purchase m;
 			int ifs_last;
-			DelimFieldBuffer buffer('|', 1000);
+			DelimFieldBuffer buffer('|', 10000);
 			RecordFile <Purchase> PurchaseFile(buffer);
 			PurchaseFile.Open("fileOfPurchase.dat", ios::in);
 			//PurchaseFile.
@@ -775,7 +775,7 @@ void DeleteMember(string want_ID) {
 				cout << "Write Error!" << endl;
 		}
 		MemberFile.Close();
-		cout << "Deleting Complete from fieldOfMember.dat" << endl;
+		cout << "Deleting Complete from fileOfMember.dat" << endl;
 	}
 	ifs.close();
 }
@@ -823,7 +823,7 @@ void DeleteLecture(string want_ID) {
 				cout << "Write Error!" << endl;
 		}
 		LectureFile.Close();
-		cout << "Deleting Complete from fildOfLecture.dat" << endl;
+		cout << "Deleting Complete from fileOfLecture.dat" << endl;
 	}
 	ifs.close();
 }
@@ -879,7 +879,7 @@ void DeletePurchase(string want_ID) {
 				cout << "Write Error!" << endl;
 		}
 		PurchaseFile.Close();
-		cout << "Deleting Complete from fildOfPurchase.dat" << endl;
+		cout << "Deleting Complete from fileOfPurchase.dat" << endl;
 	}
 	ifs.close();
 }
@@ -960,9 +960,11 @@ void ModifyingByID() {
 				memberArr[index] = m;
 				index += 1;
 				ifs.seekg(m.getLength(), ifs.cur);
+				cout << ifs.tellg() << endl;
 			}
-
-			MemberFile.Close();
+			
+			//MemberFile.Close();
+			
 			if (find_ID) {
 				MemberFile.Create("fileOfMember.dat", ios::out | ios::trunc);
 				int recaddr;
@@ -974,11 +976,11 @@ void ModifyingByID() {
 			}
 			ifs.close();
 		}
-		if (filename.compare("fileOfTicket.dat") == 0) {
+		if (filename.compare("fileOfLecture.dat") == 0) {
 			index = 0;
-			ifstream ifs("fileOfTicket.dat");
+			ifstream ifs("fileOfLecture.dat");
 			if (ifs.fail()) {
-				cout << "fileOfTicket.dat open error!" << endl;
+				cout << "fileOfLecture.dat open error!" << endl;
 				return;
 			}
 			ifs.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -1074,7 +1076,7 @@ void ModifyingByID() {
 			Purchase m;
 			int ifs_last;
 			int find_ID = 0;
-			DelimFieldBuffer buffer('|', 1000);
+			DelimFieldBuffer buffer('|', 10000);
 			RecordFile <Purchase> PurchaseFile(buffer);
 			PurchaseFile.Open("fileOfPurchase.dat", ios::in);
 			//PurchaseFile.
