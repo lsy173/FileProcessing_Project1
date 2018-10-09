@@ -316,15 +316,13 @@ int SearchingByID(int flag, string filename, string want_ID) {
 	Purchase p;
 	Lecture l;
 	Purchase* p_arr = new Purchase[30];
-
-	//string filename;
-	//string want_ID;
 	int find_ID = 0;
 	ifstream ifs(filename);
 	int ifs_last;
 	int find_Addr = 0;
 	int* addr_arr = (int*)malloc(sizeof(int));
 	int id_cnt = 0;
+
 	if (ifs.fail()) {
 		cout << filename << " open error!" << endl;
 		return 0;
@@ -479,8 +477,8 @@ void InsertingByID() {
 			DelimFieldBuffer buffer('|', 1000);
 			RecordFile <Member> MemberFile(buffer);
 			MemberFile.Open("fileOfMember.dat", ios::in);
-			//MemberFile.
-			ifs.clear();	//because of c++98
+
+			ifs.clear();
 			ifs.seekg(0, ifs.end);
 			ifs_last = ifs.tellg();
 			ifs.seekg(0, ifs.beg);
@@ -521,7 +519,7 @@ void InsertingByID() {
 			cout << "New Mileage : ";
 			cin >> update_temp;
 			if (strlen(update_temp) != 10) {
-				cout << "Wrong length" << endl;
+				cout << "Wrong Mileage length!" << endl;
 				return;
 			}
 			n.setMileage(update_temp);
@@ -555,8 +553,8 @@ void InsertingByID() {
 			DelimFieldBuffer buffer('|', 1000);
 			RecordFile <Lecture> LectureFile(buffer);
 			LectureFile.Open("fileOfLecture.dat", ios::in);
-			//LectureFile.
-			ifs.clear();	//because of c++98
+
+			ifs.clear();
 			ifs.seekg(0, ifs.end);
 			ifs_last = ifs.tellg();
 			ifs.seekg(0, ifs.beg);
@@ -590,7 +588,7 @@ void InsertingByID() {
 			cout << "New Level : ";
 			cin >> update_temp;
 			if (strlen(update_temp) != 1) {
-				cout << "Wrong length" << endl;
+				cout << "Wrong Level length!" << endl;
 				return;
 			}
 			n.setLevel(temp.c_str());
@@ -602,7 +600,7 @@ void InsertingByID() {
 			cout << "New Extension : ";
 			cin >> update_temp;
 			if (strlen(update_temp) != 1) {
-				cout << "Wrong length" << endl;
+				cout << "Wrong Extension length!" << endl;
 				return;
 			}
 			n.setExtension(update_temp);
@@ -648,8 +646,8 @@ void InsertingByID() {
 			DelimFieldBuffer buffer('|', 10000);
 			RecordFile <Purchase> PurchaseFile(buffer);
 			PurchaseFile.Open("fileOfPurchase.dat", ios::in);
-			//PurchaseFile.
-			ifs.clear();	//because of c++98
+
+			ifs.clear();
 			ifs.seekg(0, ifs.end);
 			ifs_last = ifs.tellg();
 			ifs.seekg(0, ifs.beg);
@@ -660,7 +658,7 @@ void InsertingByID() {
 					break;
 				}
 				m_temp = m;
-				//free(update_temp);
+				
 				purchaseArr[index] = m;
 				index += 1;
 				ifs.seekg(m.getLength(), ifs.cur);
@@ -795,8 +793,8 @@ void DeleteLecture(string want_ID) {
 	DelimFieldBuffer buffer('|', 1000);
 	RecordFile <Lecture> LectureFile(buffer);
 	LectureFile.Open("fileOfLecture.dat", ios::in);
-	//LectureFile.
-	ifs.clear();	//because of c++98
+
+	ifs.clear();
 	ifs.seekg(0, ifs.end);
 	ifs_last = ifs.tellg();
 	ifs.seekg(0, ifs.beg);
@@ -843,8 +841,8 @@ void DeletePurchase(string want_ID) {
 	DelimFieldBuffer buffer('|', 1000);
 	RecordFile <Purchase> PurchaseFile(buffer);
 	PurchaseFile.Open("fileOfPurchase.dat", ios::in);
-	//PurchaseFile.
-	ifs.clear();	//because of c++98
+
+	ifs.clear();
 	ifs.seekg(0, ifs.end);
 	ifs_last = ifs.tellg();
 	ifs.seekg(0, ifs.beg);
@@ -909,8 +907,8 @@ void ModifyingByID() {
 			DelimFieldBuffer buffer('|', 1000);
 			RecordFile <Member> MemberFile(buffer);
 			MemberFile.Open("fileOfMember.dat", ios::in);
-			//MemberFile.
-			ifs.clear();	//because of c++98
+			
+			ifs.clear();
 			ifs.seekg(0, ifs.end);
 			ifs_last = ifs.tellg();
 			ifs.seekg(0, ifs.beg);
@@ -920,50 +918,43 @@ void ModifyingByID() {
 					find_ID = 1;
 					string temp;
 					char* update_temp = new char(100);
+
 					cout << "New Password : ";
 					cin >> temp;
-					getchar();
 					m.setPassword(temp);
-					//fflush(stdin);
 
 					cout << "New Name : ";
-					cin.getline(update_temp, 100);
-					temp = update_temp;
+					cin >> temp;
 					m.setName(temp);
-					//fflush(stdin);
 
 					cout << "New Phone Number : ";
 					cin >> temp;
 					m.setPhoneNumber(temp);
-					//fflush(stdin);
 
 					cout << "New Address : ";
 					cin >> temp;
 					m.setAddress(temp);
-					//fflush(stdin);
 
 					cout << "New Mileage : ";
 					cin >> update_temp;
 					if (strlen(update_temp) != 10) {
-						cout << "Wrong length" << endl;
+						cout << "Mileage is Wrong length!" << endl;
 						return;
 					}
 					m.setMileage(update_temp);
-					//free(update_temp);
+					
 					ifs.seekg(m.getLength(), ifs.cur);
 					cout << endl << endl;;
 					cout << "update success!!!" << endl;
 					cout << endl;
 					cout << m;
-
 				}
 				memberArr[index] = m;
 				index += 1;
 				ifs.seekg(m.getLength(), ifs.cur);
-				cout << ifs.tellg() << endl;
 			}
 			
-			//MemberFile.Close();
+			MemberFile.Close();
 			
 			if (find_ID) {
 				MemberFile.Create("fileOfMember.dat", ios::out | ios::trunc);
@@ -991,8 +982,8 @@ void ModifyingByID() {
 			DelimFieldBuffer buffer('|', 1000);
 			RecordFile <Lecture> LectureFile(buffer);
 			LectureFile.Open("fileOfLecture.dat", ios::in);
-			//TicketFile.
-			ifs.clear();	//because of c++98
+			
+			ifs.clear();
 			ifs.seekg(0, ifs.end);
 			ifs_last = ifs.tellg();
 			ifs.seekg(0, ifs.beg);
@@ -1010,7 +1001,7 @@ void ModifyingByID() {
 					cout << "New Level : ";
 					cin >> update_temp;
 					if (strlen(update_temp) != 1) {
-						cout << "Wrong length" << endl;
+						cout << "Level Wrong length!" << endl;
 						return;
 					}
 					m.setLevel(update_temp);
@@ -1022,7 +1013,7 @@ void ModifyingByID() {
 					cout << "New Extension : ";
 					cin >> update_temp;
 					if (strlen(update_temp) != 1) {
-						cout << "Wrong length" << endl;
+						cout << "Extension Wrong length!" << endl;
 						return;
 					}
 					m.setExtension(update_temp);
@@ -1079,8 +1070,8 @@ void ModifyingByID() {
 			DelimFieldBuffer buffer('|', 10000);
 			RecordFile <Purchase> PurchaseFile(buffer);
 			PurchaseFile.Open("fileOfPurchase.dat", ios::in);
-			//PurchaseFile.
-			ifs.clear();	//because of c++98
+			
+			ifs.clear();
 			ifs.seekg(0, ifs.end);
 			ifs_last = ifs.tellg();
 			ifs.seekg(0, ifs.beg);
@@ -1092,11 +1083,11 @@ void ModifyingByID() {
 					cout << "New Mileage : ";
 					cin >> update_temp;
 					if (strlen(update_temp) != 10) {
-						cout << "Wrong length" << endl;
+						cout << "Mileage Wrong length!" << endl;
 						return;
 					}
 					m.setMileage(update_temp);
-					//free(update_temp);
+					
 					ifs.seekg(m.getLength(), ifs.cur);
 					cout << endl << endl;;
 					cout << "update success!!!" << endl;
