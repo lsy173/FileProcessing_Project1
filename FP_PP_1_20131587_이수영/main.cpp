@@ -766,7 +766,7 @@ void DeleteMember(string want_ID) {
 	MemberFile.Close();
 
 	if (find_ID) {
-		MemberFile.Open("fileOfMember.dat", ios::out | ios::trunc);
+		MemberFile.Create("fileOfMember.dat", ios::out | ios::trunc);
 		int recaddr;
 		for (int i = 0; i < index; i++) {
 			if ((recaddr = MemberFile.Write(memberArr[i])) == -1)
